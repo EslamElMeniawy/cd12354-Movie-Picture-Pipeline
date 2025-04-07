@@ -71,3 +71,6 @@ jobs:
 
       - name: Setup
         uses: ./.github/actions/setup-backend
+
+      - name: Build
+        run: docker build --tag mp-backend:${{github.sha}} .
