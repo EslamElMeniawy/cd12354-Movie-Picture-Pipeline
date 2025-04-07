@@ -25,6 +25,7 @@ jobs:
     defaults:
       run:
         working-directory: ./starter/backend
+        shell: bash
 
     steps:
       - name: Checkout
@@ -42,6 +43,7 @@ jobs:
     defaults:
       run:
         working-directory: ./starter/backend
+        shell: bash
 
     steps:
       - name: Checkout
@@ -61,6 +63,7 @@ jobs:
     defaults:
       run:
         working-directory: ./starter/backend
+        shell: bash
 
     steps:
       - name: Checkout
