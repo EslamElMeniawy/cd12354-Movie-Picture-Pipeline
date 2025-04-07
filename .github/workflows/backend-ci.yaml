@@ -34,9 +34,6 @@ jobs:
       - name: Setup
         uses: ./.github/actions/setup-backend
 
-      - name: Check if flake8 is installed
-        run: pipenv run flake8 --version
-
       - name: Lint
         run: pipenv run lint
 
