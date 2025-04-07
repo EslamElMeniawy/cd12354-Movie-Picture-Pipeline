@@ -52,6 +52,11 @@ jobs:
       - name: Setup
         uses: ./.github/actions/setup-backend
 
+      - name: Check if flake8 is installed
+        run: pipenv run flake8 --version
+        shell: bash
+        working-directory: starter/backend
+
       - name: Test
         run: pipenv run test
 
