@@ -1,11 +1,11 @@
-name: "Backend CI"
+name: "Backend CD"
 
 on:
   # Manual trigger using the workflow_dispatch event
   workflow_dispatch:
 
-  # Automatic trigger on pull request events targeting the main branch
-  pull_request:
+  # Automatic trigger on push events to the main branch
+  push:
     branches:
       - main
     paths:
