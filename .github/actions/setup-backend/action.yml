@@ -36,14 +36,14 @@ runs:
         restore-keys: |
           ${{ runner.os }}-pipenv-
 
-    # - name: Install dev dependencies
-    #   if: steps.pipenv-cache.outputs.cache-hit != 'true'
-    #   run: pipenv install --dev
-    #   shell: bash
-    #   working-directory: starter/backend
+    - name: Install dev dependencies
+      if: steps.pipenv-cache.outputs.cache-hit != 'true'
+      run: pipenv install --dev
+      shell: bash
+      working-directory: starter/backend
 
     - name: Install dependencies
-      # if: steps.pipenv-cache.outputs.cache-hit != 'true'
+      if: steps.pipenv-cache.outputs.cache-hit != 'true'
       run: pipenv install
       shell: bash
       working-directory: starter/backend
