@@ -16,9 +16,9 @@ runs:
         path: |
           **/node_modules
           ~/.npm
-        key: ${{ runner.os }}-npm-${{ hashFiles('package-lock.json') }}-${{ hashFiles('**/package.json', '!node_modules/**') }}
+        key: ${{ runner.os }}-npm-${{ hashFiles('starter/frontend/package-lock.json') }}-${{ hashFiles('**/package.json', '!node_modules/**') }}
         restore-keys: |
-          ${{ runner.os }}-npm-${{ hashFiles('package-lock.json') }}
+          ${{ runner.os }}-npm-${{ hashFiles('starter/frontend/package-lock.json') }}
           ${{ runner.os }}-npm-
 
     - name: Install dependencies
