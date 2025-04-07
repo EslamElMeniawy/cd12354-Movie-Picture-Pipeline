@@ -10,6 +10,8 @@ runs:
         PYTHON_VERSION=$(grep -Po '(?<=python_version\s=\s")[^"]+' Pipfile)
         echo "Detected Python version: $PYTHON_VERSION"
         echo "python-version=$PYTHON_VERSION" >> $GITHUB_OUTPUT
+      shell: bash
+      working-directory: starter/backend
 
     - name: Set up Python
       uses: actions/setup-python@v5
@@ -20,6 +22,8 @@ runs:
       run: |
         python -m pip install --upgrade pip
         pip install pipenv
+      shell: bash
+      working-directory: starter/backend
 
     - name: Cache dependencies
       id: pipenv-cache
@@ -36,3 +40,4 @@ runs:
       if: steps.pipenv-cache.outputs.cache-hit != 'true'
       run: pipenv install
       shell: bash
+      working-directory: starter/backend
