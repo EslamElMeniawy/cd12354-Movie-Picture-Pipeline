@@ -1,0 +1,14 @@
+name: "Backend CI"
+
+on:
+  workflow_dispatch:
+
+jobs:
+  lint:
+    runs-on: "ubuntu-latest"
+
+  test:
+    runs-on: "ubuntu-latest"
+
+  build:
+    runs-on: "ubuntu-latest"
