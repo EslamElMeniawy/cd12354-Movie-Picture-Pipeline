@@ -1,12 +1,9 @@
 name: Setup Backend
-description: Checkout, Setup Python and install dependencies
+description: Setup Python and install dependencies
 
 runs:
   using: composite
   steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-
     - name: Extract Python version from Pipfile
       id: extract-python-version
       run: |
