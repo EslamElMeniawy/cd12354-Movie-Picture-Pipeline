@@ -33,6 +33,9 @@ jobs:
       - name: Setup
         uses: ./.github/actions/setup-backend
 
+      - name: Lint
+        run: pipenv run lint
+
   test:
     runs-on: "ubuntu-latest"
 
@@ -46,6 +49,9 @@ jobs:
 
       - name: Setup
         uses: ./.github/actions/setup-backend
+
+      - name: Test
+        run: pipenv run test
 
   build:
     needs: [lint, test]
