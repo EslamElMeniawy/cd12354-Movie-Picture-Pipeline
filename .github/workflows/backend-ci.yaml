@@ -5,18 +5,18 @@ on:
   workflow_dispatch:
 
   # Automatic trigger on push events to the main branch
-  push:
-    branches:
-      - main
-    paths:
-      - "starter/backend/**"
+  # push:
+  #   branches:
+  #     - main
+  #   paths:
+  #     - "starter/backend/**"
 
   # Automatic trigger on pull request events targeting the main branch
-  pull_request:
-    branches:
-      - main
-    paths:
-      - "starter/backend/**"
+  # pull_request:
+  #   branches:
+  #     - main
+  #   paths:
+  #     - "starter/backend/**"
 
 jobs:
   lint:
