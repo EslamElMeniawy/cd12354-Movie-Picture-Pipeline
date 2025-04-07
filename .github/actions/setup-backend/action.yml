@@ -1,0 +1,41 @@
+name: Setup Backend
+description: Checkout, Setup Python and install dependencies
+
+runs:
+  using: composite
+  steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Extract Python version from Pipfile
+      id: extract-python-version
+      run: |
+        PYTHON_VERSION=$(grep -Po '(?<=python_version\s=\s")[^"]+' Pipfile)
+        echo "Detected Python version: $PYTHON_VERSION"
+        echo "python-version=$PYTHON_VERSION" >> $GITHUB_OUTPUT
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ steps.extract-python-version.outputs.python-version }}
+
+    - name: Install pipenv
+      run: |
+        python -m pip install --upgrade pip
+        pip install pipenv
+
+    - name: Cache dependencies
+      id: pipenv-cache
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.cache/pip
+          ~/.local/share/virtualenvs
+        key: ${{ runner.os }}-pipenv-${{ hashFiles('Pipfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-pipenv-
+
+    - name: Install dependencies
+      if: steps.pipenv-cache.outputs.cache-hit != 'true'
+      run: pipenv install
+      shell: bash

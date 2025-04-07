@@ -7,8 +7,34 @@ jobs:
   lint:
     runs-on: "ubuntu-latest"
 
+    defaults:
+      run:
+        working-directory: ./starter/frontend
+
+    steps:
+      - name: Setup
+        uses: ./.github/actions/setup-frontend
+
   test:
     runs-on: "ubuntu-latest"
 
+    defaults:
+      run:
+        working-directory: ./starter/frontend
+
+    steps:
+      - name: Setup
+        uses: ./.github/actions/setup-frontend
+
   build:
+    needs: [lint, test]
+
     runs-on: "ubuntu-latest"
+
+    defaults:
+      run:
+        working-directory: ./starter/frontend
+
+    steps:
+      - name: Setup
+        uses: ./.github/actions/setup-frontend

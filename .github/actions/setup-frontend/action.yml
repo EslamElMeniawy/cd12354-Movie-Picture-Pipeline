@@ -1,0 +1,30 @@
+name: Setup Frontend
+description: Checkout, Setup Node.js and install dependencies
+
+runs:
+  using: composite
+  steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version-file: .nvmrc
+
+    - name: Cache dependencies
+      id: npm-cache
+      uses: actions/cache@v4
+      with:
+        path: |
+          **/node_modules
+          ~/.npm
+        key: ${{ runner.os }}-npm-${{ hashFiles('package-lock.json') }}-${{ hashFiles('**/package.json', '!node_modules/**') }}
+        restore-keys: |
+          ${{ runner.os }}-npm-${{ hashFiles('package-lock.json') }}
+          ${{ runner.os }}-npm-
+
+    - name: Install dependencies
+      if: steps.npm-cache.outputs.cache-hit != 'true'
+      run: npm ci
+      shell: bash

@@ -7,8 +7,34 @@ jobs:
   lint:
     runs-on: "ubuntu-latest"
 
+    defaults:
+      run:
+        working-directory: ./starter/backend
+
+    steps:
+      - name: Setup
+        uses: ./.github/actions/setup-backend
+
   test:
     runs-on: "ubuntu-latest"
 
+    defaults:
+      run:
+        working-directory: ./starter/backend
+
+    steps:
+      - name: Setup
+        uses: ./.github/actions/setup-backend
+
   build:
+    needs: [lint, test]
+
     runs-on: "ubuntu-latest"
+
+    defaults:
+      run:
+        working-directory: ./starter/backend
+
+    steps:
+      - name: Setup
+        uses: ./.github/actions/setup-backend
