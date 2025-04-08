@@ -13,7 +13,6 @@ on:
 
 env:
   AWS_REGION: "us-east-1"
-  REACT_APP_MOVIE_API_URL: ""
   ECR_REGISTRY: "${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.$AWS_REGION.amazonaws.com"
   ECR_REPOSITORY: "frontend"
 
@@ -86,7 +85,8 @@ jobs:
       - name: Get Backend URL and set to ENV
         run: |
           BACKEND_URL=$(kubectl get svc backend -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
-          echo "REACT_APP_MOVIE_API_URL=$BACKEND_URL" >> $GITHUB_ENV
+          echo "REACT_APP_MOVIE_API_URL=http://$BACKEND_URL"
+          echo "REACT_APP_MOVIE_API_URL=http://$BACKEND_URL" >> $GITHUB_ENV
 
       - name: Build Docker image
         run: |
