@@ -12,6 +12,7 @@ on:
       - "starter/frontend/**"
 
 env:
+  REACT_APP_MOVIE_API_URL: "http://a5b89181152c8453198723bf3097d491-1697421611.us-east-1.elb.amazonaws.com"
   AWS_REGION: "us-east-1"
   ECR_REGISTRY: "${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.$AWS_REGION.amazonaws.com"
   ECR_REPOSITORY: "frontend"
@@ -81,12 +82,6 @@ jobs:
       - name: Update kubeconfig for EKS
         run: |
           aws eks update-kubeconfig --name ${{ secrets.EKS_CLUSTER_NAME }} --region ${{ env.AWS_REGION }}
-
-      - name: Get Backend URL and set to ENV
-        run: |
-          BACKEND_URL=$(kubectl get svc backend -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
-          echo "REACT_APP_MOVIE_API_URL=http://$BACKEND_URL"
-          echo "REACT_APP_MOVIE_API_URL=http://$BACKEND_URL" >> $GITHUB_ENV
 
       - name: Build Docker image
         run: |
