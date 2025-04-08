@@ -12,7 +12,7 @@ on:
       - "starter/frontend/**"
 
 env:
-  REACT_APP_MOVIE_API_URL: "http://localhost:5000"
+  REACT_APP_MOVIE_API_URL: ""
   ECR_REGISTRY: "${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com"
   ECR_REPOSITORY: "frontend"
 
@@ -78,6 +78,11 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
 
+      - name: Get Backend URL and set to ENV
+        run: |
+          BACKEND_URL=$(aws ssm get-parameter --name /movie-picture/backend-url --query "Parameter.Value" --output text)
+          echo "REACT_APP_MOVIE_API_URL=$BACKEND_URL" >> $GITHUB_ENV
+
       - name: Build Docker image
         run: |
           docker build \
@@ -120,3 +125,8 @@ jobs:
       - name: Apply manifests to Kubernetes
         run: |
           kustomize build | kubectl apply -f -
+
+      - name: Get LoadBalancer URL
+        run: |
+          FRONTEND_URL=$(kubectl get svc frontend -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
+          echo "Deployed site URL: http://$FRONTEND_URL"
