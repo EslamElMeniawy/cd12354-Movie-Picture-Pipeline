@@ -1,4 +1,4 @@
-name: "Frontend CI"
+name: "Frontend Continuous Integration"
 
 on:
   # Manual trigger using the workflow_dispatch event

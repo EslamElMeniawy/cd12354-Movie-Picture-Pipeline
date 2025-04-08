@@ -1,4 +1,4 @@
-name: "Frontend CD"
+name: "Frontend Continuous Deployment"
 
 on:
   # Manual trigger using the workflow_dispatch event
