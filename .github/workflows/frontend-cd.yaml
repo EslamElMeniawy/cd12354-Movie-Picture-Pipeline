@@ -78,9 +78,13 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
 
+      - name: Update kubeconfig for EKS
+        run: |
+          aws eks update-kubeconfig --name ${{ secrets.EKS_CLUSTER_NAME }} --region ${{ secrets.AWS_REGION }}
+
       - name: Get Backend URL and set to ENV
         run: |
-          BACKEND_URL=$(aws ssm get-parameter --name /movie-picture/backend-url --query "Parameter.Value" --output text)
+          BACKEND_URL=$(kubectl get svc backend -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
           echo "REACT_APP_MOVIE_API_URL=$BACKEND_URL" >> $GITHUB_ENV
 
       - name: Build Docker image

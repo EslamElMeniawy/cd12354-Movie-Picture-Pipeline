@@ -121,5 +121,4 @@ jobs:
       - name: Get LoadBalancer URL
         run: |
           BACKEND_URL=$(kubectl get svc backend -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
-          aws ssm put-parameter --name /movie-picture/backend-url --value "http://$BACKEND_URL" --type String --overwrite
           echo "Deployed site URL: http://$BACKEND_URL"
