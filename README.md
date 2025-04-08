@@ -26,9 +26,11 @@ The `GitHub` repo containing the code and the `CI/CD` actions can be found at
 - A helper action is adding to do the setup steps can be found at
   > [setup-backend](.github/actions/setup-backend/action.yml).
 
-## URL for Deployed Frontend
+## URL for Deployed Applications
 
-> [Frontend](http://aeda5a2955c084302a8bbd361d2af29c-35290928.us-east-1.elb.amazonaws.com/)
+> [Frontend](http://aeda5a2955c084302a8bbd361d2af29c-35290928.us-east-1.elb.amazonaws.com)
+
+> [Backend](http://a5b89181152c8453198723bf3097d491-1697421611.us-east-1.elb.amazonaws.com)
 
 ## Screenshots
 
